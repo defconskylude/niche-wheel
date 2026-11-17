@@ -1,11 +1,11 @@
-/* Spin the Niche widget, Traffic & Targeting with Alvin Reyes. Built 2026-11-17 14:13.
+/* Spin the Niche widget, Traffic & Targeting with Alvin Reyes. Built 2026-11-17 14:31.
    GHL snippet (never changes):
    <div id="spin-the-niche"></div>
    <script src="https://YOUR-HOST/spin.js" async></script>
 */
 (function () {
   if (window.__spinTheNiche) return; window.__spinTheNiche = true;
-  var VERSION = "2026-11-17 14:13";
+  var VERSION = "2026-11-17 14:31";
   function boot() {
     var HOST = document.getElementById("spin-the-niche");
     if (!HOST) { HOST = document.createElement("div"); HOST.id = "spin-the-niche";
