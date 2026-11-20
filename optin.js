@@ -265,15 +265,21 @@
   ".bar .small { background: var(--gold); }\n" +
   ".bar-legend { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; font-weight: 600; color: var(--muted); }\n" +
   ".bar-legend .r { text-align: right; }\n" +
-  ".stages { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-top: 10px; }\n" +
-  "@media (max-width: 900px) { .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); } .stage.ready { grid-column: 1 / -1; } }\n" +
-  "@media (max-width: 480px) { .stages { grid-template-columns: minmax(0, 1fr); } }\n" +
-  ".stage { padding: 16px 18px; border-radius: 14px; background: var(--card); border: 1px solid var(--border); display: grid; gap: 4px; align-content: start; }\n" +
-  ".stage .k { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }\n" +
-  ".stage b { font-size: 17px; }\n" +
-  ".stage p { font-size: 14px; color: var(--muted); line-height: 1.45; }\n" +
-  ".stage.ready { background: transparent; border-style: dashed; }\n" +
-  ".stage.ready .k { color: oklch(0.6 0.15 75); }\n" +
+  ".funnel { display: grid; justify-items: center; gap: 6px; margin-top: 18px; }\n" +
+  ".fn { width: var(--w); min-height: 74px; display: grid; align-content: center; justify-items: center; text-align: center; gap: 2px; padding: 12px 9%; color: var(--navy); clip-path: polygon(0 0, 100% 0, 96% 100%, 4% 100%); }\n" +
+  ".fn .k { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; opacity: .75; }\n" +
+  ".fn b { font-size: clamp(16px, 2vw, 20px); line-height: 1.2; }\n" +
+  ".fn p { font-size: 14px; line-height: 1.35; margin: 0; }\n" +
+  ".fn.s1 { --w: 100%; background: oklch(0.88 0.06 196); }\n" +
+  ".fn.s2 { --w: 88%; background: oklch(0.82 0.08 196); }\n" +
+  ".fn.s3 { --w: 76%; background: oklch(0.76 0.10 196); }\n" +
+  ".fn.s4 { --w: 64%; background: oklch(0.70 0.11 196); }\n" +
+  ".fn.ready { --w: 52%; background: var(--gold-grad); clip-path: polygon(0 0, 100% 0, 88% 100%, 12% 100%); padding-left: 14%; padding-right: 14%; }\n" +
+  ".fn-split { width: 70%; display: flex; align-items: center; gap: 10px; margin: 6px 0; font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--teal-d); }\n" +
+  ".fn-split::before, .fn-split::after { content: ''; flex: 1; border-top: 2px dashed var(--border); }\n" +
+  ".fn-split span { white-space: nowrap; text-align: center; }\n" +
+  ".fn-split .r { color: oklch(0.55 0.13 75); }\n" +
+  "@media (max-width: 640px) { .fn.s2 { --w: 94%; } .fn.s3 { --w: 88%; } .fn.s4 { --w: 82%; } .fn.ready { --w: 76%; } .fn { padding-left: 8%; padding-right: 8%; } .fn-split { width: 100%; font-size: 11px; } .fn-split span { white-space: normal; } }\n" +
   /* data layers */
   ".layers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }\n" +
   "@media (max-width: 1000px) { .layers { grid-template-columns: minmax(0, 1fr); max-width: 640px; margin: 0 auto; } }\n" +
@@ -416,8 +422,10 @@
       return '<section class="light"><div class="wrap">' + head(a) + '<div class="aware">' +
         '<div class="bar" role="img" aria-label="97% of the market is not ready to buy yet; 3% is ready now"><div class="big"><b>97%</b><span>Not ready to buy yet. This is where I find your buyers.</span></div><div class="small"></div></div>' +
         '<div class="bar-legend"><span>Top of funnel: awareness, first impression, first click</span><span class="r">3% ready now</span></div>' +
-        '<div class="stages">' + a.stages.map(function (x, i) { return '<div class="stage"><span class="k">Stage ' + (i + 1) + "</span><b>" + esc(x.name) + "</b><p>" + esc(x.desc) + "</p></div>"; }).join("") +
-        '<div class="stage ready"><span class="k">Stage 5 · the 3%</span><b>' + esc(a.ready.name) + "</b><p>" + esc(a.ready.desc) + "</p></div></div>" +
+        '<div class="funnel" role="list" aria-label="The buyer funnel, from unaware to ready to buy">' +
+        a.stages.map(function (x, i) { return '<div class="fn s' + (i + 1) + '" role="listitem"><span class="k">Stage ' + (i + 1) + "</span><b>" + esc(x.name) + "</b><p>" + esc(x.desc) + "</p></div>"; }).join("") +
+        '<div class="fn-split" aria-hidden="true"><span>&#9650; 97% &middot; where I find your buyers</span><span class="r">3% ready now &#9660;</span></div>' +
+        '<div class="fn ready" role="listitem"><span class="k">Stage ' + (a.stages.length + 1) + ' &middot; the 3%</span><b>' + esc(a.ready.name) + "</b><p>" + esc(a.ready.desc) + "</p></div></div>" +
         '</div><div class="cta-row">' + cta(C.cta, "awareness") + "</div></div></section>";
     },
     networks: function (n) {
