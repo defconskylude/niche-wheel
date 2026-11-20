@@ -328,7 +328,7 @@
   ".ads { display: grid; gap: 28px; }\n" +
   ".ad { display: grid; gap: 12px; }\n" +
   ".ad .cap { font-size: clamp(20px, 2.4vw, 26px); font-weight: 800; text-align: center; }\n" +
-  ".nets { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }\n" +
+  ".nets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: 960px; margin: 0 auto; }\n" +
   ".net { display: grid; gap: 10px; text-align: center; }\n" +
   ".net b { font-size: 14px; letter-spacing: .06em; text-transform: uppercase; }\n" +
   ".gal { position: relative; }\n" +
@@ -362,8 +362,8 @@
   ".lb button { width: 46px; height: 46px; border-radius: 50%; border: 2px solid #fff; background: transparent; color: #fff; font-size: 18px; cursor: pointer; }\n" +
   ".lb button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }\n" +
   ".lb .nav { display: flex; justify-content: center; gap: 16px; padding-top: 10px; }\n" +
-  "@media (max-width: 900px) { .nets { grid-template-columns: repeat(3, minmax(0, 1fr)); } .split { grid-template-columns: minmax(0, 1fr); } .landers { grid-template-columns: minmax(0, 1fr); max-width: 560px; margin: 0 auto; } }\n" +
-  "@media (max-width: 560px) { .nets { grid-template-columns: repeat(2, minmax(0, 1fr)); } .banners { grid-template-columns: minmax(0, 1fr); } .phase { grid-template-columns: minmax(0, 1fr); } }\n" +
+  "@media (max-width: 900px) { .split { grid-template-columns: minmax(0, 1fr); } .landers { grid-template-columns: minmax(0, 1fr); max-width: 560px; margin: 0 auto; } }\n" +
+  "@media (max-width: 560px) { .nets { gap: 12px; } .banners { grid-template-columns: minmax(0, 1fr); } .phase { grid-template-columns: minmax(0, 1fr); } }\n" +
   /* sticky bar */
   ".sticky { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; display: flex; justify-content: center; padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: oklch(0.2 0.045 257 / .92); backdrop-filter: blur(8px); transform: translateY(110%); transition: transform .25s ease; }\n" +
   ".sticky.show { transform: none; }\n" +
