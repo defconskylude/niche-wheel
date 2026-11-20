@@ -47,6 +47,8 @@
       proof: ["15 years media buying", "27 years in marketing", "400+ data sources", "Top 500 publishers"]
     },
     // Section order. Remove a name to hide that section, or move names to reorder.
+    // Per-page settings by URL path (no GHL code change needed). hero.form: true puts the form in the hero instead of the button.
+    pages: { "/agency-partners": { hero: { form: true } } },
     order: ["hero", "placements", "services", "awareness", "networks", "publishers", "data", "b2b", "who", "steps", "niches", "faq", "final"],
     imgBase: "https://defconskylude.github.io/niche-wheel/img/placements/",
     placements: {
@@ -202,7 +204,8 @@
     Object.keys(b).forEach(function (k) { o[k] = (a && typeof a[k] === "object" && !Array.isArray(a[k])) ? merge(a[k], b[k]) : b[k]; });
     return o;
   }
-  var C = merge(CONFIG, window.TT_OPTIN_CONFIG || {});
+  var PATH = (location.pathname || "/").replace(/\/+$/, "").toLowerCase() || "/";
+  var C = merge(merge(CONFIG, (CONFIG.pages || {})[PATH] || {}), window.TT_OPTIN_CONFIG || {});
   var T = C.theme;
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function hl(s) { return esc(s).replace(/\[\[(.+?)\]\]/g, '<span class="grad">$1</span>'); }
@@ -239,6 +242,15 @@
   ".eyebrow { display: inline-block; font-weight: 700; font-size: 14px; letter-spacing: .04em; padding: 8px 22px; border-radius: 999px; background: var(--gold); color: var(--navy); }\n" +
   ".hero .sub { font-size: clamp(17px, 2vw, 20px); color: var(--muted); max-width: 62ch; }\n" +
   ".hero .note { font-weight: 700; color: var(--teal-d); }\n" +
+  ".hero .inner.has-form { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); max-width: 1120px; text-align: left; justify-items: stretch; align-items: center; gap: clamp(28px, 4vw, 48px); }\n" +
+  ".has-form .copy { display: grid; gap: 20px; justify-items: start; }\n" +
+  ".has-form .proof { justify-content: flex-start; }\n" +
+  ".hero-form { background: var(--card); border-radius: 18px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 60px oklch(0.215 0.055 257 / .16); }\n" +
+  ".hf-head { background: var(--navy); color: var(--navy-ink); padding: 18px 22px 16px; border-bottom: 4px solid var(--gold); display: grid; gap: 4px; }\n" +
+  ".hf-head b { font-size: 20px; line-height: 1.25; }\n" +
+  ".hf-head p { font-size: 14px; line-height: 1.45; opacity: .85; margin: 0; }\n" +
+  ".hf-body { padding: 6px 8px 4px; min-height: " + C.form.height + "px; }\n" +
+  "@media (max-width: 900px) { .hero .inner.has-form { grid-template-columns: minmax(0, 1fr); text-align: center; max-width: 620px; } .has-form .copy { justify-items: center; } .has-form .proof { justify-content: center; } }\n" +
   ".proof { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px; }\n" +
   ".proof span { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 999px; background: var(--card); border: 1px solid var(--border); }\n" +
   ".proof svg { width: 18px; height: 18px; color: var(--teal); flex: none; }\n" +
@@ -380,6 +392,7 @@
   "@media (prefers-reduced-motion: reduce) { .cta, .sticky { transition: none; } }\n";
 
   var modalCss = "#tt-modal, #tt-modal * { box-sizing: border-box; }\n" +
+  "#tt-optin > [slot=heroform] iframe { display: block; width: 100%; height: " + C.form.height + "px; border: none; border-radius: 4px; }\n" +
   "#tt-modal { position: fixed; inset: 0; z-index: 2147483000; display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: oklch(0.2 0.045 257 / .78); backdrop-filter: blur(4px); font-family: '" + T.font + "', system-ui, sans-serif; }\n" +
   "#tt-modal[hidden] { display: none !important; }\n" +
   "#tt-modal .dlg { position: relative; width: min(560px, 100%); max-height: 100%; overflow: auto; background: #fff; color: " + T.ink + "; border-radius: 20px; box-shadow: 0 30px 80px rgba(0,0,0,.45); animation: ttRise .28s cubic-bezier(.2,1.2,.4,1); }\n" +
@@ -406,6 +419,12 @@
   function list(items) { return '<ul class="pts">' + items.map(function (p) { return "<li>" + check() + "<span>" + esc(p) + "</span></li>"; }).join("") + "</ul>"; }
   var R = {
     hero: function (h) {
+      if (h.form) {
+        return '<section class="hero"><div class="wrap"><div class="inner has-form"><div class="copy">' + (h.eyebrow ? '<p class="eyebrow">' + esc(h.eyebrow) + "</p>" : "") +
+          "<h1>" + hl(h.headline) + '</h1><p class="sub">' + esc(h.sub) + "</p>" + (h.note ? '<p class="note">' + esc(h.note) + "</p>" : "") +
+          '<div class="proof">' + (h.proof || []).map(function (p) { return "<span>" + check() + esc(p) + "</span>"; }).join("") + "</div></div>" +
+          '<div class="hero-form" id="form"><div class="hf-head"><b>' + esc(C.form.title) + "</b><p>" + esc(C.form.sub) + '</p></div><div class="hf-body"><slot name="heroform"></slot></div></div></div></div></section>';
+      }
       return '<section class="hero"><div class="wrap"><div class="inner">' + (h.eyebrow ? '<p class="eyebrow">' + esc(h.eyebrow) + "</p>" : "") +
         "<h1>" + hl(h.headline) + '</h1><p class="sub">' + esc(h.sub) + "</p>" + (h.note ? '<p class="note">' + esc(h.note) + "</p>" : "") + cta(C.cta, "hero") +
         '<div class="proof">' + (h.proof || []).map(function (p) { return "<span>" + check() + esc(p) + "</span>"; }).join("") + "</div></div></div></section>";
@@ -503,11 +522,21 @@
     modal.innerHTML = '<div class="dlg"><header><div class="k">' + esc(C.final.host) + '</div><h2 id="tt-modal-title">' + esc(C.form.title) + "</h2><p>" + esc(C.form.sub) + '</p></header><button class="x" type="button" aria-label="Close form">✕</button><div class="fw"></div></div>';
     document.body.appendChild(modal);
     var loaded = false, last = null;
+    function embedJs() {
+      if (window.__ttEmbed) return; window.__ttEmbed = true;
+      var sc = document.createElement("script"); sc.src = "https://link.msgsndr.com/js/form_embed.js"; document.body.appendChild(sc);
+    }
+    function formFrame(prefix) {
+      var id = C.form.id, fid = prefix + id;
+      return '<iframe src="https://api.leadconnectorhq.com/widget/form/' + id + '" id="' + fid + '" data-layout="{\'id\':\'INLINE\'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="' + esc(C.form.name) + '" data-height="' + C.form.height + '" data-layout-iframe-id="' + fid + '" data-form-id="' + id + '" title="' + esc(C.form.name) + '"></iframe>';
+    }
+    if (C.hero && C.hero.form && ROOT.querySelector(".hero-form")) {
+      var hf = document.createElement("div"); hf.setAttribute("slot", "heroform"); hf.innerHTML = formFrame("inline-hero-");
+      HOST.appendChild(hf); embedJs();
+    }
     function loadForm() {
       if (loaded) return; loaded = true;
-      var id = C.form.id;
-      modal.querySelector(".fw").innerHTML = '<iframe src="https://api.leadconnectorhq.com/widget/form/' + id + '" id="inline-tt-' + id + '" data-layout="{\'id\':\'INLINE\'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="' + esc(C.form.name) + '" data-height="' + C.form.height + '" data-layout-iframe-id="inline-tt-' + id + '" data-form-id="' + id + '" title="' + esc(C.form.name) + '"></iframe>';
-      var sc = document.createElement("script"); sc.src = "https://link.msgsndr.com/js/form_embed.js"; document.body.appendChild(sc);
+      modal.querySelector(".fw").innerHTML = formFrame("inline-tt-"); embedJs();
     }
     function open(src) {
       last = document.activeElement; loadForm(); modal.hidden = false; document.body.style.overflow = "hidden";
