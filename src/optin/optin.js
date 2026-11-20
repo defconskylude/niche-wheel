@@ -47,7 +47,7 @@
       proof: ["15 years media buying", "27 years in marketing", "400+ data sources", "Top 500 publishers"]
     },
     // Section order. Remove a name to hide that section, or move names to reorder.
-    order: ["hero", "placements", "services", "awareness", "networks", "publishers", "data", "geofence", "b2b", "landers", "who", "steps", "niches", "faq", "final"],
+    order: ["hero", "placements", "services", "awareness", "networks", "publishers", "data", "b2b", "who", "steps", "niches", "faq", "final"],
     imgBase: "https://defconskylude.github.io/niche-wheel/img/placements/",
     placements: {
       tag: "REAL PLACEMENTS",
@@ -337,6 +337,8 @@
   ".nets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: 960px; margin: 0 auto; }\n" +
   ".net { display: grid; gap: 10px; text-align: center; }\n" +
   ".net b { font-size: 14px; letter-spacing: .06em; text-transform: uppercase; }\n" +
+  ".pubs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }\n" +
+  "@media (max-width: 560px) { .pubs { gap: 10px; } }\n" +
   ".gal { position: relative; }\n" +
   ".track { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 16px; }\n" +
   ".track::-webkit-scrollbar { display: none; }\n" +
@@ -433,7 +435,7 @@
         n.items.map(function (x) { return '<div class="net"><div class="shot">' + img(x.img, x.name + " ad placement", "networks") + "</div><b>" + esc(x.name) + "</b></div>"; }).join("") + "</div></div></section>";
     },
     publishers: function (p) {
-      return '<section class="on-navy"><div class="wrap">' + head(p, true) + gallery(p.images, p.alt, "publishers") + '<div class="cta-row">' + cta(C.cta, "publishers") + "</div></div></section>";
+      return '<section class="on-navy"><div class="wrap">' + head(p, true) + '<div class="pubs">' + p.images.map(function (f, i) { return '<div class="shot">' + img(f, p.alt + " " + (i + 1), "publishers") + "</div>"; }).join("") + '</div><div class="cta-row">' + cta(C.cta, "publishers") + "</div></div></section>";
     },
     data: function (d) {
       return '<section class="on-navy" style="padding-top:0"><div class="wrap">' + head(d, true) + '<div class="layers">' +
