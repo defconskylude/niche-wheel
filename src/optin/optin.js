@@ -279,7 +279,7 @@
   ".fn-split::before, .fn-split::after { content: ''; flex: 1; border-top: 2px dashed var(--border); }\n" +
   ".fn-split span { white-space: nowrap; text-align: center; }\n" +
   ".fn-split .r { color: oklch(0.55 0.13 75); }\n" +
-  "@media (max-width: 640px) { .fn.s2 { --w: 94%; } .fn.s3 { --w: 88%; } .fn.s4 { --w: 82%; } .fn.ready { --w: 76%; } .fn { padding-left: 8%; padding-right: 8%; } .fn-split { width: 100%; font-size: 11px; } .fn-split span { white-space: normal; } }\n" +
+  "@media (max-width: 640px) { .fn.s2 { --w: 94%; } .fn.s3 { --w: 88%; } .fn.s4 { --w: 82%; } .fn.ready { --w: 76%; } .fn { padding-left: 8%; padding-right: 8%; } .fn-split { width: 100%; font-size: 11px; flex-direction: column; gap: 2px; } .fn-split::before, .fn-split::after { display: none; } }\n" +
   /* data layers */
   ".layers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }\n" +
   "@media (max-width: 1000px) { .layers { grid-template-columns: minmax(0, 1fr); max-width: 640px; margin: 0 auto; } }\n" +
