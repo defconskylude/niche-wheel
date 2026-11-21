@@ -48,8 +48,17 @@
     },
     // Section order. Remove a name to hide that section, or move names to reorder.
     // Per-page settings by URL path (no GHL code change needed). hero.form: true puts the form in the hero instead of the button.
-    pages: { "/agency-partners": { hero: { form: true } } },
-    order: ["hero", "placements", "services", "awareness", "networks", "publishers", "data", "b2b", "who", "steps", "niches", "faq", "final"],
+    pages: {
+      "/agency-partners": {
+        hero: { form: true },
+        audiences: {
+          headline: "Build Your Client's Perfect Customer From [[5,300+ Audiences]]",
+          sub: "Real segments I pulled from The Trade Desk. Pick a client, then stack layers from different categories into their ideal customer profile. Bring the list to our partner call and I'll build it under your agency's name.",
+          trayCta: "Build This For A Client"
+        }
+      }
+    },
+    order: ["hero", "placements", "services", "awareness", "networks", "publishers", "data", "audiences", "b2b", "who", "steps", "niches", "faq", "final"],
     imgBase: "https://defconskylude.github.io/niche-wheel/img/placements/",
     placements: {
       tag: "REAL PLACEMENTS",
@@ -154,6 +163,18 @@
         { value: "373M", label: "active IDs in a single GLP-1 interest segment" }
       ],
       statsNote: "Numbers from a live audience build on camera."
+    },
+    // Audience explorer: searchable table of real Trade Desk segments (data lives in audiences.json, loaded on scroll)
+    audiences: {
+      tag: "THE AUDIENCE VAULT",
+      headline: "Build Your Perfect Customer From [[5,300+ Audiences]] Meta And Google Don't Have",
+      sub: "These are real segments I pulled from The Trade Desk. Pick a category, search anything, and stack layers from different categories into your ideal customer profile. I'll build it with you on our call.",
+      dataUrl: "https://defconskylude.github.io/niche-wheel/audiences.json",
+      pageSize: 25,
+      examples: ["annuity", "net worth", "CFO", "GLP-1", "trade show", "homeowner", "Medicare", "roofing"],
+      trayTitle: "Your ICP",
+      trayCta: "Build My ICP On A Call",
+      note: "Audience sizes come from The Trade Desk data marketplace at the time of pull and change daily. Interest and intent segments reflect browsing and modeled behavior, not a confirmed diagnosis, belief or financial status. Health, political, financial, credit and housing offers have extra legal and platform rules; we'll confirm what's allowed for your offer on the call."
     },
     who: {
       tag: "WHO IT'S FOR",
@@ -391,6 +412,71 @@
   "@media (max-width: 520px) { .cta { width: 100%; justify-content: center; padding: 16px 20px; font-size: 14px; } .bar { grid-template-columns: 92fr 8fr; } .svc, .who, .step { padding: 22px; } }\n" +
   "@media (prefers-reduced-motion: reduce) { .cta, .sticky { transition: none; } }\n";
 
+  css += 
+  ".aud { background: var(--bg); }\n" +
+  ".ax { display: grid; gap: 14px; }\n" +
+  ".ax-ctl { display: grid; grid-template-columns: 150px minmax(0, 1.3fr) minmax(0, 1.6fr) 170px; gap: 10px; align-items: end; }\n" +
+  ".ax-ctl label { display: grid; gap: 6px; min-width: 0; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }\n" +
+  ".ax-ctl select, .ax-ctl input { width: 100%; min-width: 0; font: inherit; font-size: 15px; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--ink); background: var(--card); border: 1.5px solid var(--border); border-radius: 12px; padding: 12px 14px; height: 48px; }\n" +
+  ".ax-ctl select:focus-visible, .ax-ctl input:focus-visible, .ax button:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }\n" +
+  ".ax-ex { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); }\n" +
+  ".ax-ex button { font: inherit; font-size: 13px; font-weight: 600; color: var(--teal-d); background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; cursor: pointer; }\n" +
+  ".ax-ex button:hover { border-color: var(--teal); }\n" +
+  ".ax-meta { font-size: 14px; color: var(--muted); min-height: 1.4em; }\n" +
+  ".ax-meta b { color: var(--ink); }\n" +
+  ".ax-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }\n" +
+  ".ax-head, .ax-row { display: grid; grid-template-columns: minmax(0, 1fr) 104px 104px 88px 112px; gap: 12px; align-items: center; padding: 14px 18px; }\n" +
+  ".ax-head { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: oklch(0.975 0.01 198); border-bottom: 1px solid var(--border); }\n" +
+  ".ax-head span:not(:first-child) { text-align: right; }\n" +
+  ".ax-list { list-style: none; margin: 0; padding: 0; }\n" +
+  ".ax-row { border-bottom: 1px solid var(--border); }\n" +
+  ".ax-row:last-child { border-bottom: 0; }\n" +
+  ".ax-row.on { background: oklch(0.97 0.035 196); }\n" +
+  ".ax-seg { min-width: 0; display: grid; gap: 3px; }\n" +
+  ".ax-seg b { font-size: 15px; line-height: 1.35; overflow-wrap: anywhere; }\n" +
+  ".ax-path { font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }\n" +
+  ".ax-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 3px; }\n" +
+  ".ax-chips span { font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: oklch(0.95 0.03 198); color: var(--teal-d); }\n" +
+  ".ax-chips span.pv { background: oklch(0.95 0.01 250); color: var(--muted); font-weight: 600; }\n" +
+  ".ax-n { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 15px; }\n" +
+  ".ax-n.dim { color: var(--muted); font-weight: 500; }\n" +
+  ".ax-act { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }\n" +
+  ".ax-add { font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; border-radius: 999px; padding: 8px 14px; border: 1.5px solid var(--navy); background: transparent; color: var(--navy); white-space: nowrap; }\n" +
+  ".ax-add[aria-pressed=\"true\"] { background: var(--navy); color: var(--gold); }\n" +
+  ".ax-info { font: inherit; font-size: 12px; font-weight: 600; color: var(--teal-d); background: none; border: 0; padding: 2px 0; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }\n" +
+  ".ax-desc { grid-column: 1 / -1; margin: 0; font-size: 14px; color: var(--muted); background: oklch(0.975 0.01 198); border-radius: 10px; padding: 10px 14px; }\n" +
+  ".ax-empty { padding: 28px 18px; text-align: center; color: var(--muted); }\n" +
+  ".ax-empty b { color: var(--ink); }\n" +
+  ".ax-more { justify-self: center; font: inherit; font-weight: 800; font-size: 14px; letter-spacing: .04em; cursor: pointer; border-radius: 999px; padding: 12px 26px; border: 1.5px solid var(--border); background: var(--card); color: var(--ink); }\n" +
+  ".ax-more:hover { border-color: var(--teal); }\n" +
+  ".ax-tray { position: sticky; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 5; background: var(--navy); color: var(--navy-ink); border-radius: var(--r); padding: 16px 18px; display: grid; gap: 12px; box-shadow: 0 20px 50px oklch(0.2 0.045 257 / .35); }\n" +
+  ".ax-tray-h { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; }\n" +
+  ".ax-tray-h b { font-size: 17px; }\n" +
+  ".ax-tray-h b span { color: var(--gold); }\n" +
+  ".ax-tray-h .tools { display: flex; gap: 8px; }\n" +
+  ".ax-tray-h .tools button { font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; border-radius: 999px; padding: 7px 14px; border: 1px solid oklch(1 0 0 / .25); background: transparent; color: var(--navy-ink); }\n" +
+  ".ax-tray ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; max-height: 132px; overflow: auto; }\n" +
+  ".ax-tray li { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; background: oklch(1 0 0 / .08); border: 1px solid oklch(1 0 0 / .14); border-radius: 999px; padding: 5px 6px 5px 12px; max-width: 100%; }\n" +
+  ".ax-tray li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }\n" +
+  ".ax-tray li em { font-style: normal; color: var(--gold); font-size: 11px; font-weight: 700; }\n" +
+  ".ax-tray li button { flex: none; width: 24px; height: 24px; border-radius: 50%; border: 0; cursor: pointer; background: oklch(1 0 0 / .14); color: var(--navy-ink); font-size: 13px; line-height: 1; }\n" +
+  ".ax-tray .cta { justify-self: start; }\n" +
+  ".ax-tray .hint { font-size: 12px; color: oklch(0.8 0.02 250); }\n" +
+  ".ax-note { font-size: 12px; color: var(--muted); max-width: 90ch; }\n" +
+  "@media (max-width: 860px) {\n" +
+  "  .ax-ctl { grid-template-columns: 1fr 1fr; }\n" +
+  "  .ax-ctl .q { grid-column: 1 / -1; order: -1; }\n" +
+  "  .ax-head { display: none; }\n" +
+  "  .ax-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 16px; }\n" +
+  "  .ax-seg { grid-column: 1 / -1; }\n" +
+  "  .ax-n { text-align: left; font-size: 14px; }\n" +
+  "  .ax-n::before { content: attr(data-l); display: block; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }\n" +
+  "  .ax-act { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; align-items: center; }\n" +
+  "  .ax-tray { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }\n" +
+  "  .ax-tray .cta { justify-self: stretch; justify-content: center; }\n" +
+  "}\n" +
+  "";
+
   var modalCss = "#tt-modal, #tt-modal * { box-sizing: border-box; }\n" +
   "#tt-optin > [slot=heroform] iframe { display: block; width: 100%; height: " + C.form.height + "px; border: none; border-radius: 4px; }\n" +
   "#tt-modal { position: fixed; inset: 0; z-index: 2147483000; display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: oklch(0.2 0.045 257 / .78); backdrop-filter: blur(4px); font-family: '" + T.font + "', system-ui, sans-serif; }\n" +
@@ -476,6 +562,23 @@
         l.items.map(function (x) { return '<div class="lander"><div class="shot">' + img(x.img, x.title + " screenshot", "landers") + '</div><p class="t">' + esc(x.title) + '</p><a class="linkbtn" href="' + esc(x.url) + '" target="_blank" rel="noopener">View landing page ↗</a></div>'; }).join("") +
         '</div><div class="cta-row">' + cta(C.cta, "landers") + "</div></div></section>";
     },
+    audiences: function (a) {
+      return '<section class="aud" id="audiences"><div class="wrap">' + head(a) +
+        '<div class="ax" data-ax><div class="ax-ctl">' +
+          '<label><span>Type</span><select data-f="type" aria-label="Business or consumer audiences"><option value="">B2B + B2C</option><option value="B2B">B2B only</option><option value="B2C">B2C only</option></select></label>' +
+          '<label><span>Audience category</span><select data-f="tab" aria-label="Audience category"><option value="">All categories</option></select></label>' +
+          '<label class="q"><span>Search</span><input type="search" data-f="q" placeholder="Search any audience, title or interest" autocomplete="off" aria-label="Search audiences"></label>' +
+          '<label><span>Sort by</span><select data-f="sort" aria-label="Sort audiences"><option value="featured">Featured mix</option><option value="ids">Largest reach</option><option value="hh">Most households</option><option value="ctv">Most CTV reach</option><option value="az">A to Z</option></select></label>' +
+        '</div>' +
+        (a.examples && a.examples.length ? '<div class="ax-ex"><span>Try:</span>' + a.examples.map(function (x) { return '<button type="button" data-ex="' + esc(x) + '">' + esc(x) + "</button>"; }).join("") + "</div>" : "") +
+        '<p class="ax-meta" aria-live="polite">Loading 5,300+ audiences…</p>' +
+        '<div class="ax-box"><div class="ax-head" aria-hidden="true"><span>Audience segment</span><span>Reach (IDs)</span><span>Households</span><span>CTV</span><span></span></div><ul class="ax-list"></ul></div>' +
+        '<button type="button" class="ax-more" hidden>Show more</button>' +
+        '<aside class="ax-tray" hidden aria-label="' + esc(a.trayTitle || "Your ICP") + '"><div class="ax-tray-h"><b>' + esc(a.trayTitle || "Your ICP") + ': <span data-n>0</span> layers</b><div class="tools"><button type="button" data-copy>Copy list</button><button type="button" data-clear>Clear</button></div></div><ol></ol>' +
+          cta(a.trayCta || C.cta, "audiences-icp") + '<p class="hint">Your list shows up in the booking form so we can build it together.</p></aside>' +
+        (a.note ? '<p class="ax-note">' + esc(a.note) + "</p>" : "") +
+        "</div></div></section>";
+    },
     who: function (w) {
       return '<section class="light" style="padding-top:0"><div class="wrap">' + head(w) + '<div class="grid2">' +
         w.items.map(function (it) { return '<article class="who"><h3>' + esc(it.title) + "</h3><p>" + esc(it.body) + "</p>" + list(it.points) + "</article>"; }).join("") + "</div></div></section>";
@@ -503,6 +606,136 @@
     if (C.stickyBar) out += '<div class="sticky" aria-hidden="true">' + cta(C.cta, "sticky") + "</div>";
     out += '<div class="lb" hidden role="dialog" aria-modal="true" aria-label="Image viewer"><div class="bar-top"><button type="button" data-lb="close" aria-label="Close image">✕</button></div><div class="stage-img"><img alt=""></div><div class="nav"><button type="button" data-lb="-1" aria-label="Previous image">←</button><button type="button" data-lb="1" aria-label="Next image">→</button></div></div>';
     return out;
+  }
+
+  /* ======================= audience explorer ======================= */
+  function fmt(n) {
+    if (!n) return "—";
+    if (n >= 1e9) return (n / 1e9).toFixed(1).replace(/\.0$/, "") + "B";
+    if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, "") + "M";
+    if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, "") + "K";
+    return String(n);
+  }
+  function initAudiences(ROOT, modal) {
+    var box = ROOT.querySelector("[data-ax]");
+    if (!box || !C.audiences) return;
+    var A = C.audiences, D = null, rows = [], hay = [], shown = 0, list = [], picked = [], timer = 0;
+    var el = function (s) { return box.querySelector(s); };
+    var fType = el('[data-f="type"]'), fTab = el('[data-f="tab"]'), fQ = el('[data-f="q"]'), fSort = el('[data-f="sort"]');
+    var meta = el(".ax-meta"), ul = el(".ax-list"), more = el(".ax-more"), tray = el(".ax-tray");
+    var KEY = "tt-icp-v1";
+    try { picked = JSON.parse(localStorage.getItem(KEY) || "[]") || []; } catch (e) { picked = []; }
+
+    function load() {
+      if (D) return; D = {};
+      fetch(A.dataUrl).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (j) {
+        D = j;
+        rows = j.rows.map(function (r, i) {
+          var parts = r[2].split(">").map(function (x) { return x.trim(); });
+          var t = j.tabs[r[0]];
+          return { i: i, tab: r[0], tname: t[0], ttype: t[2], prov: r[1], name: parts[parts.length - 1], path: parts.slice(0, -1).join(" › "), ids: r[3], per: r[4], hh: r[5], ctv: r[6], d: r[7], key: t[0] + "|" + r[2] };
+        });
+        var rk = {}; rows.slice().sort(function (a, b) { return (b.hh || b.ids / 1e3) - (a.hh || a.ids / 1e3); }).forEach(function (r) { rk[r.tab] = (rk[r.tab] || 0) + 1; r.rank = rk[r.tab]; });
+        hay = rows.map(function (r) { return (r.name + " " + r.path + " " + r.tname + " " + r.prov + " " + (r.d >= 0 ? j.descs[r.d] : "")).toLowerCase(); });
+        fillTabs(); run(); drawTray();
+      }).catch(function () {
+        D = null; meta.innerHTML = "Couldn't load the audience list. <b>Refresh the page</b> or ask me for it on the call.";
+      });
+    }
+    function fillTabs() {
+      var type = fType.value, cur = fTab.value, h = '<option value="">All categories (' + countFor(type, "") + ")</option>";
+      D.cats.forEach(function (c, ci) {
+        if (type && c[0] !== type) return;
+        var opts = D.tabs.map(function (t, ti) { return [t, ti]; }).filter(function (x) { return x[0][1] === ci; });
+        h += '<optgroup label="' + esc(c[0] + " · " + c[1]) + '">' + opts.map(function (x) { return '<option value="' + x[1] + '">' + esc(x[0][0]) + " (" + x[0][3] + ")</option>"; }).join("") + "</optgroup>";
+      });
+      fTab.innerHTML = h;
+      if (cur && fTab.querySelector('option[value="' + cur + '"]')) fTab.value = cur;
+    }
+    function countFor(type) { return rows.filter(function (r) { return !type || r.ttype === type || r.ttype === "B2B+B2C"; }).length.toLocaleString(); }
+    function run() {
+      if (!D || !D.rows) return;
+      var type = fType.value, tab = fTab.value === "" ? -1 : +fTab.value, words = fQ.value.toLowerCase().trim().split(/\s+/).filter(Boolean), sort = fSort.value;
+      list = rows.filter(function (r) {
+        if (type && r.ttype !== type && r.ttype !== "B2B+B2C") return false;
+        if (tab >= 0 && r.tab !== tab) return false;
+        for (var w = 0; w < words.length; w++) if (hay[r.i].indexOf(words[w]) < 0) return false;
+        return true;
+      });
+      var k = { ids: "ids", hh: "hh", ctv: "ctv" }[sort];
+      list.sort(sort === "featured" ? function (a, b) { return a.rank - b.rank || a.tab - b.tab; } : k ? function (a, b) { return b[k] - a[k]; } : function (a, b) { return a.name.localeCompare(b.name); });
+      shown = 0; ul.innerHTML = ""; page();
+      var tabs = {}; list.forEach(function (r) { tabs[r.tab] = 1; });
+      meta.innerHTML = list.length ? "<b>" + list.length.toLocaleString() + "</b> audience" + (list.length === 1 ? "" : "s") + " in <b>" + Object.keys(tabs).length + "</b> categor" + (Object.keys(tabs).length === 1 ? "y" : "ies") + (words.length ? " matching “" + esc(fQ.value.trim()) + "”" : "") : "";
+      if (!list.length) ul.innerHTML = '<li class="ax-empty"><b>No audiences match “' + esc(fQ.value.trim()) + '” here.</b><br>Try a broader word or another category. I can also search 400+ data sources live on our call.</li>';
+    }
+    function isOn(r) { return picked.some(function (p) { return p.k === r.key; }); }
+    function rowHtml(r) {
+      var on = isOn(r);
+      return '<li class="ax-row' + (on ? " on" : "") + '" data-i="' + r.i + '"><div class="ax-seg"><b>' + esc(r.name) + '</b><span class="ax-path">' + esc(r.path) + '</span><span class="ax-chips"><span>' + esc(r.tname) + '</span><span class="pv">' + esc(r.prov) + "</span></span></div>" +
+        '<div class="ax-n" data-l="Reach">' + fmt(r.ids) + '</div><div class="ax-n' + (r.hh ? "" : " dim") + '" data-l="Households">' + fmt(r.hh) + '</div><div class="ax-n' + (r.ctv ? "" : " dim") + '" data-l="CTV">' + fmt(r.ctv) + "</div>" +
+        '<div class="ax-act"><button type="button" class="ax-add" aria-pressed="' + on + '" aria-label="' + (on ? "Remove " : "Add ") + esc(r.name) + ' to your ICP">' + (on ? "✓ Added" : "+ Add") + "</button>" +
+        (r.d >= 0 ? '<button type="button" class="ax-info" aria-expanded="false">Details</button>' : "") + "</div></li>";
+    }
+    function page() {
+      var n = A.pageSize || 25, next = list.slice(shown, shown + n);
+      ul.insertAdjacentHTML("beforeend", next.map(rowHtml).join(""));
+      shown += next.length;
+      more.hidden = shown >= list.length;
+      more.textContent = "Show " + Math.min(n, list.length - shown) + " more (" + (list.length - shown).toLocaleString() + " left)";
+    }
+    function refresh() { ul.querySelectorAll(".ax-row").forEach(function (li) { var r = rows[+li.getAttribute("data-i")], d = li.querySelector(".ax-desc"); li.outerHTML = rowHtml(r); if (d) showDesc(ul.querySelector('[data-i="' + r.i + '"]'), r); }); }
+    function save() { try { localStorage.setItem(KEY, JSON.stringify(picked)); } catch (e) {} }
+    function drawTray() {
+      tray.hidden = !picked.length;
+      el("[data-n]").textContent = picked.length;
+      tray.querySelector("ol").innerHTML = picked.map(function (p, i) { return '<li><span title="' + esc(p.n + " (" + p.t + ")") + '">' + esc(p.n) + '</span><em>' + esc(p.t) + '</em><button type="button" data-rm="' + i + '" aria-label="Remove ' + esc(p.n) + '">✕</button></li>'; }).join("");
+    }
+    function summary() { return picked.map(function (p) { return p.n + " (" + p.t + ", " + p.pv + ", " + fmt(p.ids) + " IDs)"; }).join("\n"); }
+    function toggle(r) {
+      var at = -1; picked.forEach(function (p, i) { if (p.k === r.key) at = i; });
+      if (at >= 0) picked.splice(at, 1); else picked.push({ k: r.key, n: r.name, t: r.tname, pv: r.prov, ids: r.ids });
+      save(); drawTray();
+      var li = ul.querySelector('[data-i="' + r.i + '"]');
+      if (li) { var info = li.querySelector(".ax-desc"); li.outerHTML = rowHtml(r); if (info) { var nli = ul.querySelector('[data-i="' + r.i + '"]'); showDesc(nli, r); } }
+      try { window.dataLayer && window.dataLayer.push({ event: at >= 0 ? "tt_icp_remove" : "tt_icp_add", audience: r.name, category: r.tname, icp_size: picked.length }); } catch (e) {}
+    }
+    function showDesc(li, r) {
+      var b = li.querySelector(".ax-info"); if (!b) return;
+      var d = li.querySelector(".ax-desc");
+      if (d) { d.remove(); b.setAttribute("aria-expanded", "false"); b.textContent = "Details"; return; }
+      li.insertAdjacentHTML("beforeend", '<p class="ax-desc">' + esc(D.descs[r.d]) + "</p>");
+      b.setAttribute("aria-expanded", "true"); b.textContent = "Hide";
+    }
+    box.addEventListener("click", function (e) {
+      var t = e.target.closest ? e.target : null; if (!t) return;
+      var add = t.closest(".ax-add"), info = t.closest(".ax-info"), ex = t.closest("[data-ex]"), rm = t.closest("[data-rm]");
+      if (add || info) { var li = t.closest(".ax-row"), r = rows[+li.getAttribute("data-i")]; if (add) toggle(r); else showDesc(li, r); }
+      else if (ex) { fQ.value = ex.getAttribute("data-ex"); fTab.value = ""; load(); run(); }
+      else if (rm) { picked.splice(+rm.getAttribute("data-rm"), 1); save(); drawTray(); refresh(); }
+      else if (t.closest(".ax-more")) page();
+      else if (t.closest("[data-clear]")) { picked = []; save(); drawTray(); refresh(); }
+      else if (t.closest("[data-copy]")) {
+        var txt = "My ICP layers:\n" + summary(), btn = t.closest("[data-copy]");
+        var done = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy list"; }, 1500); };
+        if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, function () { window.prompt("Copy your ICP list:", txt); }); else window.prompt("Copy your ICP list:", txt);
+      }
+      else if (t.closest(".cta")) {
+        var p = modal.querySelector("header p");
+        if (p && picked.length) p.innerHTML = "<b>Your ICP (" + picked.length + " layers):</b> " + picked.map(function (x) { return esc(x.n); }).join(" · ") + "<br>Add these to the notes field, or just tell me on the call.";
+        try { window.dataLayer && window.dataLayer.push({ event: "tt_icp_book", icp_size: picked.length, icp_layers: picked.map(function (x) { return x.n; }).join(" | ") }); } catch (e) {}
+        window.TTOptin.icp = picked.slice();
+      }
+    });
+    fType.addEventListener("change", function () { if (D && D.rows) fillTabs(); run(); });
+    fTab.addEventListener("change", run);
+    fSort.addEventListener("change", run);
+    fQ.addEventListener("input", function () { load(); clearTimeout(timer); timer = setTimeout(run, 120); });
+    box.addEventListener("focusin", load);
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: "800px 0px" });
+      io.observe(box);
+    } else load();
   }
 
   /* ======================= mount ======================= */
@@ -577,6 +810,7 @@
     modal.addEventListener("click", function (e) { if (e.target === modal) close(); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !modal.hidden) close(); });
     window.TTOptin = { open: open, close: close, config: C };
+    initAudiences(ROOT, modal);
 
     // sticky CTA appears after the hero scrolls away, hides at the final section
     var sticky = ROOT.querySelector(".sticky");
