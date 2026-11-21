@@ -54,7 +54,8 @@
         audiences: {
           headline: "Build Your Client's Perfect Customer From [[5,300+ Audiences]]",
           sub: "Real segments I pulled from The Trade Desk. Pick a client, then stack layers from different categories into their ideal customer profile. Bring the list to our partner call and I'll build it under your agency's name.",
-          trayCta: "Build This For A Client"
+          trayCta: "Build This For A Client",
+          tableSub: "Every audience tab I pulled from The Trade Desk. Pick a category and a tab to see what you could offer each client."
         }
       }
     },
@@ -169,6 +170,9 @@
       tag: "THE AUDIENCE VAULT",
       headline: "Build Your Perfect Customer From [[5,300+ Audiences]] Meta And Google Don't Have",
       sub: "These are real segments I pulled from The Trade Desk. Pick a category, search anything, and stack layers from different categories into your ideal customer profile. I'll build it with you on our call.",
+      // view: "tabs" = simple tab + table view (default). "explorer" = Option A: dropdowns, search and ICP builder.
+      view: "tabs",
+      tableSub: "Every audience tab I pulled from The Trade Desk. Pick a category, then a tab, to see the segments and their reach.",
       dataUrl: "https://defconskylude.github.io/niche-wheel/audiences.json",
       pageSize: 25,
       examples: ["annuity", "net worth", "CFO", "GLP-1", "trade show", "homeowner", "Medicare", "roofing"],
@@ -475,6 +479,38 @@
   "  .ax-tray { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }\n" +
   "  .ax-tray .cta { justify-self: stretch; justify-content: center; }\n" +
   "}\n" +
+  ".axt { display: grid; gap: 14px; }\n" +
+  ".axt-strip { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }\n" +
+  ".axt-strip button { flex: none; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; white-space: nowrap; border-radius: 999px; padding: 9px 16px; border: 1.5px solid var(--border); background: var(--card); color: var(--ink); }\n" +
+  ".axt-strip button:hover { border-color: var(--teal); }\n" +
+  ".axt-strip button[aria-selected=\"true\"] { background: var(--navy); border-color: var(--navy); color: var(--gold); }\n" +
+  ".axt-strip button:focus-visible, .axt th button:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }\n" +
+  ".axt-strip.sub button { font-size: 13px; font-weight: 600; padding: 7px 14px; }\n" +
+  ".axt-strip.sub button[aria-selected=\"true\"] { background: var(--teal-d); border-color: var(--teal-d); color: #fff; }\n" +
+  ".axt-strip button small { font-weight: 600; opacity: .7; margin-left: 4px; }\n" +
+  ".axt-meta { font-size: 14px; color: var(--muted); min-height: 1.4em; }\n" +
+  ".axt-meta b { color: var(--ink); }\n" +
+  ".axt-wrap { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); overflow: auto; max-height: 640px; }\n" +
+  ".axt table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 14px; }\n" +
+  ".axt th, .axt td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }\n" +
+  ".axt th { position: sticky; top: 0; z-index: 2; background: oklch(0.975 0.01 198); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }\n" +
+  ".axt th button { all: unset; cursor: pointer; }\n" +
+  ".axt th button::after { content: \" ↕\"; opacity: .4; }\n" +
+  ".axt th[aria-sort=\"descending\"] button::after { content: \" ↓\"; opacity: 1; }\n" +
+  ".axt th[aria-sort=\"ascending\"] button::after { content: \" ↑\"; opacity: 1; }\n" +
+  ".axt th.num, .axt td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }\n" +
+  ".axt td.num { font-weight: 700; }\n" +
+  ".axt td.num.dim { color: var(--muted); font-weight: 500; }\n" +
+  ".axt td.seg b { display: block; font-size: 14px; }\n" +
+  ".axt td.seg span { display: block; font-size: 12px; color: var(--muted); }\n" +
+  ".axt td.pv { font-size: 13px; color: var(--muted); white-space: nowrap; }\n" +
+  ".axt tbody tr:hover td { background: oklch(0.985 0.012 196); }\n" +
+  ".axt tbody tr:last-child td { border-bottom: 0; }\n" +
+  ".axt-empty { padding: 28px; text-align: center; color: var(--muted); }\n" +
+  ".axt td.seg, .axt th:first-child { position: sticky; left: 0; z-index: 1; background: var(--card); box-shadow: 1px 0 0 var(--border); }\n" +
+  ".axt th:first-child { z-index: 3; background: oklch(0.975 0.01 198); }\n" +
+  ".axt .cta-row { margin-top: 10px; }\n" +
+  "@media (max-width: 640px) { .axt-wrap { max-height: 70vh; } .axt th, .axt td { padding: 10px 12px; } .axt table { min-width: 640px; } .axt td.seg, .axt th:first-child { width: 160px; min-width: 160px; max-width: 160px; } .axt td.seg b { font-size: 13px; } .axt td.seg span { display: none; } }\n" +
   "";
 
   var modalCss = "#tt-modal, #tt-modal * { box-sizing: border-box; }\n" +
@@ -563,6 +599,20 @@
         '</div><div class="cta-row">' + cta(C.cta, "landers") + "</div></div></section>";
     },
     audiences: function (a) {
+      if (a.view !== "explorer") {
+        return '<section class="aud" id="audiences"><div class="wrap">' + head({ tag: a.tag, headline: a.headline, sub: a.tableSub || a.sub }) +
+          '<div class="axt" data-axt><div class="axt-strip" role="tablist" aria-label="Audience categories" data-cats></div>' +
+          '<div class="axt-strip sub" role="tablist" aria-label="Audience tabs" data-tabs></div>' +
+          '<p class="axt-meta" aria-live="polite">Loading 5,300+ audiences…</p>' +
+          '<div class="axt-wrap" role="tabpanel"><table><thead><tr>' +
+            '<th scope="col" data-k="name"><button type="button">Audience segment</button></th><th scope="col" data-k="prov"><button type="button">Data provider</button></th>' +
+            '<th scope="col" class="num" data-k="ids" aria-sort="descending"><button type="button">Reach (IDs)</button></th><th scope="col" class="num" data-k="per"><button type="button">Persons</button></th>' +
+            '<th scope="col" class="num" data-k="hh"><button type="button">Households</button></th><th scope="col" class="num" data-k="ctv"><button type="button">CTV</button></th>' +
+          '</tr></thead><tbody></tbody></table></div>' +
+          '<div class="cta-row">' + cta(C.cta, "audiences-table") + "</div>" +
+          (a.note ? '<p class="ax-note">' + esc(a.note) + "</p>" : "") +
+          "</div></div></section>";
+      }
       return '<section class="aud" id="audiences"><div class="wrap">' + head(a) +
         '<div class="ax" data-ax><div class="ax-ctl">' +
           '<label><span>Type</span><select data-f="type" aria-label="Business or consumer audiences"><option value="">B2B + B2C</option><option value="B2B">B2B only</option><option value="B2C">B2C only</option></select></label>' +
@@ -615,6 +665,58 @@
     if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, "") + "M";
     if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, "") + "K";
     return String(n);
+  }
+  function initAudienceTabs(ROOT) {
+    var box = ROOT.querySelector("[data-axt]");
+    if (!box || !C.audiences) return;
+    var D = null, cat = 0, tab = -1, key = "ids", dir = -1;
+    var catsEl = box.querySelector("[data-cats]"), tabsEl = box.querySelector("[data-tabs]"), meta = box.querySelector(".axt-meta"), tb = box.querySelector("tbody"), wrap = box.querySelector(".axt-wrap");
+    function load() {
+      if (D) return; D = {};
+      fetch(C.audiences.dataUrl).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (j) {
+        D = j;
+        D.byTab = j.tabs.map(function () { return []; });
+        j.rows.forEach(function (r) { var parts = r[2].split(">").map(function (x) { return x.trim(); }); D.byTab[r[0]].push({ name: parts[parts.length - 1], path: parts.slice(0, -1).join(" › "), prov: r[1], ids: r[3], per: r[4], hh: r[5], ctv: r[6] }); });
+        catsEl.innerHTML = j.cats.map(function (c, i) { var n = 0; j.tabs.forEach(function (t, ti) { if (t[1] === i) n += t[3]; }); return '<button type="button" role="tab" data-cat="' + i + '" aria-selected="' + (i === 0) + '">' + esc(c[0] + " · " + c[1]) + "<small>" + n.toLocaleString() + "</small></button>"; }).join("");
+        pickCat(0);
+      }).catch(function () { D = null; meta.innerHTML = "Couldn't load the audience list. <b>Refresh the page</b> or ask me for it on the call."; });
+    }
+    function pickCat(i) {
+      cat = i;
+      catsEl.querySelectorAll("[data-cat]").forEach(function (b) { b.setAttribute("aria-selected", String(+b.getAttribute("data-cat") === i)); });
+      var first = -1;
+      tabsEl.innerHTML = D.tabs.map(function (t, ti) { if (t[1] !== i) return ""; if (first < 0) first = ti; return '<button type="button" role="tab" data-tab="' + ti + '" aria-selected="false">' + esc(t[0]) + "<small>" + t[3] + "</small></button>"; }).join("");
+      pickTab(first);
+    }
+    function pickTab(ti) {
+      tab = ti;
+      tabsEl.querySelectorAll("[data-tab]").forEach(function (b) { b.setAttribute("aria-selected", String(+b.getAttribute("data-tab") === ti)); });
+      draw(); wrap.scrollTop = 0;
+    }
+    function draw() {
+      var rows = (D.byTab[tab] || []).slice();
+      rows.sort(function (a, b) { var x = a[key], y = b[key]; return (typeof x === "string" ? x.localeCompare(y) : x - y) * dir; });
+      box.querySelectorAll("th[data-k]").forEach(function (th) { var k = th.getAttribute("data-k"); if (k === key) th.setAttribute("aria-sort", dir < 0 ? "descending" : "ascending"); else th.removeAttribute("aria-sort"); });
+      tb.innerHTML = rows.length ? rows.map(function (r) {
+        return '<tr><td class="seg"><b>' + esc(r.name) + "</b><span>" + esc(r.path) + '</span></td><td class="pv">' + esc(r.prov) + '</td><td class="num">' + fmt(r.ids) + '</td><td class="num' + (r.per ? "" : " dim") + '">' + fmt(r.per) + '</td><td class="num' + (r.hh ? "" : " dim") + '">' + fmt(r.hh) + '</td><td class="num' + (r.ctv ? "" : " dim") + '">' + fmt(r.ctv) + "</td></tr>";
+      }).join("") : '<tr><td colspan="6" class="axt-empty">No segments in this tab.</td></tr>';
+      var t = D.tabs[tab];
+      meta.innerHTML = "<b>" + esc(t[0]) + "</b>: " + rows.length + " segment" + (rows.length === 1 ? "" : "s") + " · " + D.rows.length.toLocaleString() + " audiences across " + D.tabs.length + " tabs";
+    }
+    box.addEventListener("click", function (e) {
+      var c = e.target.closest("[data-cat]"), t = e.target.closest("[data-tab]"), th = e.target.closest("th[data-k]");
+      if (c && D && D.tabs) pickCat(+c.getAttribute("data-cat"));
+      else if (t && D && D.tabs) pickTab(+t.getAttribute("data-tab"));
+      else if (th && D && D.tabs) { var k = th.getAttribute("data-k"); if (k === key) dir = -dir; else { key = k; dir = (k === "name" || k === "prov") ? 1 : -1; } draw(); }
+    });
+    box.addEventListener("keydown", function (e) {
+      var b = e.target.closest('[role="tab"]'); if (!b || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
+      var sib = e.key === "ArrowRight" ? b.nextElementSibling : b.previousElementSibling; if (sib) { sib.focus(); sib.click(); e.preventDefault(); }
+    });
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: "800px 0px" });
+      io.observe(box);
+    } else load();
   }
   function initAudiences(ROOT, modal) {
     var box = ROOT.querySelector("[data-ax]");
@@ -810,7 +912,7 @@
     modal.addEventListener("click", function (e) { if (e.target === modal) close(); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !modal.hidden) close(); });
     window.TTOptin = { open: open, close: close, config: C };
-    initAudiences(ROOT, modal);
+    if (C.audiences && C.audiences.view !== "explorer") initAudienceTabs(ROOT); else initAudiences(ROOT, modal);
 
     // sticky CTA appears after the hero scrolls away, hides at the final section
     var sticky = ROOT.querySelector(".sticky");
