@@ -65,6 +65,7 @@
           eyebrow: "THANKS! YOUR REQUEST IS IN",
           headline: "Before We Talk, [[Watch This 7-Minute Video]]",
           video: "vs1sDiCHsSw",
+          poster: "lawyers-video-poster.webp",   // 960x540 WebP under 50KB in img/placements (falls back to YouTube thumbnail if removed)
           videoTitle: "How I put your law firm in front of people who searched for an injury lawyer",
           sub: "See how I put your firm in front of people who just searched for a car accident or injury lawyer, on trusted sites like Fox News, CNN and USA Today. Not Meta. Not Google.",
           note: "I'll text you shortly to set up a quick chat.",
@@ -187,13 +188,13 @@
       headline: "Here's What I've Been Doing [[For Clients Like You]]",
       sub: "Real placements, real targeting and real results. Scroll through, then decide if you want in.",
       banners: [
-        { img: "banner-1.jpg", alt: "Mock-up of client banner ads in every standard size" },
-        { img: "banner-2.jpg", alt: "Mock-up of event-sponsor banner ads in every standard size" }
+        { img: "banner-1.webp", alt: "Mock-up of client banner ads in every standard size" },
+        { img: "banner-2.webp", alt: "Mock-up of event-sponsor banner ads in every standard size" }
       ],
       ads: [
-        { img: "ads-1.jpg", caption: "This Could Be Your Brand, Front & Center.", alt: "Client ads running on a major sports news site" },
-        { img: "ads-2.jpg", caption: "Your Competitors Wish They Thought Of This First.", alt: "Client ads placed alongside sports coverage" },
-        { img: "ads-3.jpg", caption: "Real Placements. Real Eyeballs. Real Pipeline.", alt: "B2B ads running on a national news site" }
+        { img: "ads-1.webp", caption: "This Could Be Your Brand, Front & Center.", alt: "Client ads running on a major sports news site" },
+        { img: "ads-2.webp", caption: "Your Competitors Wish They Thought Of This First.", alt: "Client ads placed alongside sports coverage" },
+        { img: "ads-3.webp", caption: "Real Placements. Real Eyeballs. Real Pipeline.", alt: "B2B ads running on a national news site" }
       ]
     },
     networks: {
@@ -201,25 +202,25 @@
       headline: "Your Ads On [[Sites Your Buyers Already Trust]]",
       sub: "Your brand appears next to the news, finance and sports coverage your ideal customers read every day.",
       items: [
-        { name: "Fox News", img: "net-fox.jpg" }, { name: "ESPN", img: "net-espn.jpg" },
-        { name: "CNN", img: "net-cnn.jpg" }, { name: "USA Today", img: "net-usatoday.jpg" },
-        { name: "Yahoo! Finance", img: "net-yahoo-finance.jpg" }, { name: "New York Times", img: "net-nyt.jpg" },
-        { name: "Bloomberg", img: "net-bloomberg.jpg" }, { name: "Reuters", img: "net-reuters.jpg" },
-        { name: "Forbes", img: "net-forbes.jpg" }, { name: "Yahoo! News", img: "net-yahoo-news.jpg" }
+        { name: "Fox News", img: "net-fox.webp" }, { name: "ESPN", img: "net-espn.webp" },
+        { name: "CNN", img: "net-cnn.webp" }, { name: "USA Today", img: "net-usatoday.webp" },
+        { name: "Yahoo! Finance", img: "net-yahoo-finance.webp" }, { name: "New York Times", img: "net-nyt.webp" },
+        { name: "Bloomberg", img: "net-bloomberg.webp" }, { name: "Reuters", img: "net-reuters.webp" },
+        { name: "Forbes", img: "net-forbes.webp" }, { name: "Yahoo! News", img: "net-yahoo-news.webp" }
       ]
     },
     publishers: {
       tag: "TOP 500+ PUBLISHER WEBSITES",
       headline: "One Campaign, [[500+ Premium Publishers]]",
       sub: "Display, connected TV, apps and audio across the networks and channels your buyers watch, read and stream.",
-      images: ["pub-01.jpg", "pub-02.jpg", "pub-03.jpg", "pub-04.jpg", "pub-05.jpg", "pub-06.jpg", "pub-07.jpg", "pub-08.jpg", "pub-09.jpg", "pub-10.jpg", "pub-11.jpg", "pub-12.jpg", "pub-13.jpg", "pub-14.jpg"],
+      images: ["pub-01.webp", "pub-02.webp", "pub-03.webp", "pub-04.webp", "pub-05.webp", "pub-06.webp", "pub-07.webp", "pub-08.webp", "pub-09.webp", "pub-10.webp", "pub-11.webp", "pub-12.webp", "pub-13.webp", "pub-14.webp"],
       alt: "Publisher and channel network list"
     },
     geofence: {
       tag: "B2B GEOFENCE TARGETING",
       headline: "Are You Sponsoring An Event In 2026?",
       sub: "Target attendees before, during and after their events. Then retarget them so your brand stays top of mind long after the event ends.",
-      img: "geofence-dome.jpg",
+      img: "geofence-dome.webp",
       alt: "Geofence dome over a convention center with location pins",
       phases: [
         { name: "Before", desc: "Reach registered attendees and exhibitors while they plan their trip." },
@@ -231,7 +232,7 @@
       tag: "EXCLUSIVE B2B TARGETING",
       headline: "Reach Decision Makers [[By Company, Revenue And Role]]",
       sub: "Filter by company revenue, size, industry and job function, then put your offer in front of the people who sign the checks.",
-      images: ["b2b-1.jpg", "b2b-2.jpg", "b2b-3.jpg"],
+      images: ["b2b-1.webp", "b2b-2.webp", "b2b-3.webp"],
       alt: "B2B targeting segment list",
       link: { label: "See sample B2B targeting", url: "https://docs.google.com/spreadsheets/d/16JY6Fzos2YU4YzZk0cZ5NrT8Niha-J8Sfer-hiwuceI/edit?gid=981158144#gid=981158144" }
     },
@@ -240,9 +241,9 @@
       headline: "Traffic Lands On Pages [[Built To Convert]]",
       sub: "Better traffic deserves a better first click. Here are lead magnets and landing pages built for client campaigns.",
       items: [
-        { title: "LandBX lead magnet", img: "lp-landbx-magnet.jpg", url: "https://landbx-magnet.lovable.app/" },
-        { title: "LandBX landing page", img: "lp-landbx-lp.jpg", url: "https://landbx-lp.lovable.app/" },
-        { title: "SunFrog lead magnet", img: "lp-sunfrog.jpg", url: "https://sunfrog-lead-magnet.lovable.app/" }
+        { title: "LandBX lead magnet", img: "lp-landbx-magnet.webp", url: "https://landbx-magnet.lovable.app/" },
+        { title: "LandBX landing page", img: "lp-landbx-lp.webp", url: "https://landbx-lp.lovable.app/" },
+        { title: "SunFrog lead magnet", img: "lp-sunfrog.webp", url: "https://sunfrog-lead-magnet.lovable.app/" }
       ]
     },
     services: {
@@ -686,7 +687,7 @@
       }
       // hero.video: YouTube id. Shows a light thumbnail first; the player loads on tap (fast on phones).
       var vid = h.video ? '<div class="hero-video"><button class="yt" type="button" data-yt="' + esc(h.video) + '" aria-label="Play video: ' + esc(h.videoTitle || h.headline.replace(/\[\[|\]\]/g, "")) + '">' +
-        '<img src="https://i.ytimg.com/vi/' + esc(h.video) + '/maxresdefault.jpg" alt="" loading="eager" fetchpriority="high" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/' + esc(h.video) + '/hqdefault.jpg\'">' +
+        '<img src="' + esc(h.poster ? C.imgBase + h.poster : "https://i.ytimg.com/vi/" + h.video + "/hqdefault.jpg") + '" alt="" width="960" height="540" fetchpriority="high" decoding="async">' +
         '<span class="play" aria-hidden="true"><svg viewBox="0 0 68 48"><path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.3.3 34 .3 34 .3s-21.3 0-26.5 1.4a8.5 8.5 0 0 0-6 6C.1 13 .1 24 .1 24s0 11 1.4 16.3a8.5 8.5 0 0 0 6 6C12.7 47.7 34 47.7 34 47.7s21.3 0 26.5-1.4a8.5 8.5 0 0 0 6-6C67.9 35 67.9 24 67.9 24s0-11-1.4-16.3z" fill="#f00"/><path d="M27 34.3 44.8 24 27 13.7z" fill="#fff"/></svg></span></button></div>' : "";
       var proof = (h.proof || []).length ? '<div class="proof">' + h.proof.map(function (p) { return "<span>" + check() + esc(p) + "</span>"; }).join("") + "</div>" : "";
       return '<section class="hero' + (h.video ? " has-video" : "") + '"><div class="wrap"><div class="inner">' + (h.eyebrow ? '<p class="eyebrow">' + esc(h.eyebrow) + "</p>" : "") +
