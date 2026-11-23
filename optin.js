@@ -71,7 +71,102 @@
           cta: false,
           proof: []
         },
-        final: { bio: "" }
+        form: {
+          name: "Lawyers",
+          title: "Book A Quick Chat",
+          sub: "Tell me your practice area and the market you want. I'll show you how many people are researching it right now."
+        },
+        cta: "Book A Quick Chat",
+        order: ["hero", "placements", "services", "awareness", "networks", "publishers", "data", "audiences", "who", "steps", "faq", "final"],
+        placements: {
+          headline: "What Your Firm's Ads [[Could Look Like]]",
+          sub: "Bright, simple banners in 8 to 10 sizes with your face, your firm and your city. Here are real placements I've run for clients."
+        },
+        services: {
+          headline: "Find Them. Follow Them. [[Bring Them Back To You.]]",
+          sub: "Every campaign starts with your practice area and your market, then reaches injury searchers at three moments before other firms do.",
+          items: [
+            { tag: "BRAND AWARENESS", title: "Your face on trusted sites", body: "Your face, firm name and city show up on sites like Fox News, CNN and USA Today while people in your market read the news.", points: ["Shown only in the markets you choose", "Display and streaming TV placements", "8 to 10 banner sizes, designed for you"] },
+            { tag: "INTENT TRAFFIC", title: "Reach people who just searched", body: "Target people who recently researched a car accident lawyer, personal injury, workplace injury or birth injury, then send them to your landing page.", points: ["24 car accident intent audiences", "239 personal injury audiences", "Workplace, birth injury and malpractice too"] },
+            { tag: "RETARGETING", title: "Stay in front of them while they decide", body: "Follow up on the sites they browse every day, and send them back to your landing page and your Meta retargeting so more of them opt in.", points: ["Retargeting across the open internet", "Better visitors feeding your Meta pixel", "Frequency caps you control"] }
+          ]
+        },
+        awareness: {
+          headline: "Most Firms Fight Over The [[3% Ready To Hire]]. I Go Find The Other 97%.",
+          sub: "Only a small slice of injured people are ready to sign today, and that's where every firm is bidding on Google. Everyone else is still reading, comparing and researching what to do after their accident. That's where I find them.",
+          stages: [
+            { name: "Unaware", desc: "Just had an accident, hasn't thought about a lawyer" },
+            { name: "Problem aware", desc: "Hurt and worried about the bills" },
+            { name: "Solution aware", desc: "Reading about filing a claim" },
+            { name: "Product aware", desc: "Comparing firms, not ready to call" }
+          ],
+          ready: { name: "Most aware", desc: "Ready to call a lawyer now. Your intake team handles these." }
+        },
+        networks: {
+          headline: "Your Face On [[Sites Your Clients Already Trust]]",
+          sub: "Your firm can appear next to the news, sports and weather that people in your market read every day."
+        },
+        data: {
+          tag: "INJURY INTENT DATA",
+          headline: "Targeting You Can't Get [[Inside Meta Or Google]]",
+          sub: "Meta has no interest or intent targeting for personal injury, and Google stops at the keyword. I stack intent layers until the audience matches the cases you want.",
+          layers: [
+            { name: "Injury intent", desc: "People researching car accidents, injuries, claims and lawyers in the last 15 days." },
+            { name: "Practice area", desc: "Car, truck and motorcycle accidents, workplace injury, birth injury, malpractice and mass tort." },
+            { name: "Location", desc: "Your city, your county or the exact markets you want, down to the zip code." },
+            { name: "Insurance", desc: "People likely to have personal injury coverage on their auto policy." },
+            { name: "Demographics", desc: "Age, household and life events in the areas you serve." }
+          ],
+          stats: [
+            { value: "24", label: "car accident intent audiences in one search" },
+            { value: "239", label: "personal injury audiences to choose from" },
+            { value: "107.8M", label: "active IDs in one car accident lawyer segment" },
+            { value: "15", label: "days: how recent the search intent is" }
+          ],
+          statsNote: "Numbers from the live audience search in the video."
+        },
+        audiences: {
+          tag: "THE AUDIENCE VAULT",
+          headline: "See The [[Injury Audiences]] I Can Build For Your Firm",
+          sub: "Real legal and injury segments from my data marketplace. Pick a tab to see each audience and its reach. I'll build yours with you on our chat.",
+          tableSub: "Legal & injury opens first. Browse the other categories too.",
+          startCat: "Legal & injury",
+          examples: ["personal injury", "car accident", "workplace injury", "birth injury", "mass tort", "malpractice", "truck accident", "wrongful death"],
+          trayCta: "Build This For My Firm",
+          note: "Audience sizes come from the data marketplace at the time of pull and change daily. Intent segments reflect browsing and modeled behavior, not a confirmed injury or claim. Attorney advertising rules vary by state, so your ads follow your state bar's rules."
+        },
+        who: {
+          tag: "WHO IT'S FOR",
+          headline: "Built For Firms [[Already Advertising]]",
+          items: [
+            { title: "Personal injury & mass tort firms", body: "Firms already running Google, Meta, TV or billboards that want new audiences and placements their current marketing can't reach.", points: ["Keep your current ads and agency", "Reach searchers after they leave Google", "Your face in your market, on trusted sites"] },
+            { title: "Your marketing team or agency", body: "Whoever runs your Google and Meta ads keeps doing what they do. I add the traffic they don't have access to.", points: ["I don't touch your ad accounts", "More visitors for your Meta retargeting", "White-label friendly for legal agencies"] }
+          ]
+        },
+        steps: {
+          tag: "WHAT HAPPENS NEXT",
+          headline: "From Quick Chat To Your Ads Live In Three Steps",
+          items: [
+            { title: "Quick chat or text", body: "I'll text you. We pick your practice areas, your market and your budget. A call is optional." },
+            { title: "I build & design", body: "I build the injury intent audiences and design your banners with your face, firm and city." },
+            { title: "Traffic goes to your funnel", body: "Searchers land on your page, your Meta pixel learns, and your retargeting brings them back while they decide." }
+          ]
+        },
+        faq: {
+          items: [
+            { q: "Do you run our Google or Meta ads?", a: "No. Your team or agency keeps running them. I add audiences and placements outside social media and Google, and send that traffic to your landing page." },
+            { q: "Who are these people, exactly?", a: "People who recently researched topics like car accident lawyers, what to do after an accident or personal injury claims. They aren't sold to you as leads. You reach them with your own ads, under your own name." },
+            { q: "Where will my ads show?", a: "On trusted, high-traffic sites like Fox News, ESPN, CNN and USA Today, plus other sites across the open internet where people read about accidents and injury law. Exact placements depend on your market and budget." },
+            { q: "What does it cost?", a: "Right now there's no monthly management fee. You fund the ad spend, typically a $1,000 minimum, plus a one-time setup fee for your creatives. More ad spend reaches more people." },
+            { q: "Do I have to get on a Zoom call?", a: "No. Most of it can be done by text, and I can send Loom videos. If you'd rather talk, we can hop on a call." },
+            { q: "How many firms are you taking on?", a: "I'm looking for 15 law firms across the U.S. for this strategy." }
+          ]
+        },
+        final: {
+          headline: "Want To See How Many People [[Are Searching In Your Market]]?",
+          sub: "I'll text you shortly. Reply with your practice area and city, and I'll show you the audiences I'd build for your firm.",
+          bio: ""
+        }
       }
     },
     order: ["hero", "placements", "services", "awareness", "networks", "publishers", "data", "audiences", "b2b", "who", "steps", "niches", "faq", "final"],
@@ -705,8 +800,11 @@
         D = j;
         D.byTab = j.tabs.map(function () { return []; });
         j.rows.forEach(function (r) { var parts = r[2].split(">").map(function (x) { return x.trim(); }); D.byTab[r[0]].push({ name: parts[parts.length - 1], path: parts.slice(0, -1).join(" › "), prov: r[1], ids: r[3], per: r[4], hh: r[5], ctv: r[6] }); });
-        catsEl.innerHTML = j.cats.map(function (c, i) { var n = 0; j.tabs.forEach(function (t, ti) { if (t[1] === i) n += t[3]; }); return '<button type="button" role="tab" data-cat="' + i + '" aria-selected="' + (i === 0) + '">' + esc(c[0] + " · " + c[1]) + "<small>" + n.toLocaleString() + "</small></button>"; }).join("");
-        pickCat(0);
+        // audiences.startCat: category name to open first (e.g. "Legal & injury"); default is the first one
+        var start = Math.max(0, j.cats.findIndex(function (c) { return c[1] === C.audiences.startCat; }));
+        catsEl.innerHTML = j.cats.map(function (c, i) { var n = 0; j.tabs.forEach(function (t, ti) { if (t[1] === i) n += t[3]; }); return '<button type="button" role="tab" data-cat="' + i + '" aria-selected="' + (i === start) + '">' + esc(c[0] + " · " + c[1]) + "<small>" + n.toLocaleString() + "</small></button>"; }).join("");
+        pickCat(start);
+        if (start) { var sb = catsEl.querySelector('[data-cat="' + start + '"]'); if (sb) catsEl.scrollLeft = sb.offsetLeft - 16; }
       }).catch(function () { D = null; meta.innerHTML = "Couldn't load the audience list. <b>Refresh the page</b> or ask me for it on the call."; });
     }
     function pickCat(i) {
