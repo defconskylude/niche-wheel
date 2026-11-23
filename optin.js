@@ -84,11 +84,9 @@
           tag: "PRACTICE-AREA TARGETING",
           headline: "Pick The Cases You Want. [[I'll Find The People Researching Them.]]",
           sub: "Every practice area gets its own audience, so your ads only reach people researching the kind of case you take.",
-          groups: [
-            { name: "Auto & vehicle", items: ["Car Accident Lawyer", "Car Accident Claim", "Car Crash", "Auto Accident", "Auto Accident Lawyer", "Auto Accident Lawsuit", "Whiplash & Auto Injuries", "Ride Share Accidents", "Motorcycle Accident Claims", "Bicycle Accident Claims", "Pedestrian Accidents"] },
-            { name: "Trucking & commercial", items: ["Commercial Trucking Accidents", "Delivery Truck Accidents", "Commercial Bus Accidents", "Aviation Accidents"] },
-            { name: "Injury & malpractice", items: ["Accident Injury", "Personal Injury Law", "Slip & Fall Injuries", "Workplace Injuries", "Long Term Disability After an Accident", "Birth Injury", "Birth Injury Malpractice"] }
-          ],
+          // image: file in img/placements/. Remove "image" to fall back to "groups" (pill chips).
+          image: "lawyers-targeting.webp",
+          alt: "Detailed targeting list of personal injury interests: accident injury, auto accident, auto accident lawyer, auto accident lawsuit, aviation accidents, bicycle accident claims, birth injury, birth injury malpractice, car accident claim, car accident lawyer, car crash, commercial bus accidents, commercial trucking accidents, delivery truck accidents, InjuryLawyers.com, long term disability after an accident, motorcycle accident claims, pedestrian accidents, personal injury law, ride share accidents, slip and fall injuries, workplace injuries, whiplash and auto injuries",
           note: "Layer any of these with your city, county or zip codes."
         },
         placements: {
@@ -475,6 +473,9 @@
   /* niches */
   ".niches { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 900px; margin: 0 auto; }\n" +
   ".niches span { font-weight: 600; font-size: 15px; padding: 10px 18px; border-radius: 999px; background: var(--card); border: 1px solid var(--border); }\n" +
+  ".tg-shot { max-width: 640px; margin: 0 auto; border-radius: 16px; overflow: hidden; background: #fff; border: 1px solid var(--border); box-shadow: 0 20px 50px oklch(0.215 0.055 257 / .14); }\n" +
+  ".tg-shot .zoom { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }\n" +
+  ".tg-shot img { display: block; width: 100%; height: auto; }\n" +
   ".tg { display: grid; gap: 28px; max-width: 900px; margin: 0 auto; }\n" +
   ".tg-g { display: grid; gap: 12px; justify-items: center; text-align: center; }\n" +
   ".tg-g h3 { font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-d); }\n" +
@@ -784,9 +785,11 @@
         (n.link ? '<div class="nlink"><a href="' + esc(n.link.url) + '" target="_top">' + esc(n.link.label) + " →</a></div>" : "") + "</div></section>";
     },
     targeting: function (t) {
-      return '<section class="light"><div class="wrap">' + head(t) + '<div class="tg">' + t.groups.map(function (g) {
-        return '<div class="tg-g"><h3>' + esc(g.name) + '</h3><div class="niches">' + g.items.map(function (x) { return "<span>" + esc(x) + "</span>"; }).join("") + "</div></div>"; }).join("") +
-        "</div>" + (t.note ? '<p class="tg-note">' + esc(t.note) + "</p>" : "") + '<div class="cta-row">' + cta(C.cta, "targeting") + "</div></div></section>";
+      var body = t.image ? '<div class="tg-shot shot">' + img(t.image, t.alt || t.headline, "targeting") + "</div>" :
+        '<div class="tg">' + (t.groups || []).map(function (g) {
+          return '<div class="tg-g"><h3>' + esc(g.name) + '</h3><div class="niches">' + g.items.map(function (x) { return "<span>" + esc(x) + "</span>"; }).join("") + "</div></div>"; }).join("") + "</div>";
+      return '<section class="light"><div class="wrap">' + head(t) + body +
+        (t.note ? '<p class="tg-note">' + esc(t.note) + "</p>" : "") + '<div class="cta-row">' + cta(C.cta, "targeting") + "</div></div></section>";
     },
     faq: function (f) {
       return '<section class="light" style="padding-top:0"><div class="wrap">' + head(f) + '<div class="faq">' +
