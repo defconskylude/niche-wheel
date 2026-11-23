@@ -77,7 +77,20 @@
           sub: "Tell me your practice area and the market you want. I'll show you how many people are researching it right now."
         },
         cta: "Book A Quick Chat",
-        order: ["hero", "placements", "services", "awareness", "networks", "publishers", "data", "audiences", "who", "steps", "faq", "final"],
+        // Hidden for now on /lawyers: audiences (vault), b2b, who, niches (industries). Add a name back to show it.
+        order: ["hero", "placements", "services", "awareness", "networks", "publishers", "data", "targeting", "steps", "faq", "final"],
+        // Practice-area targeting chips (section "targeting"). Edit groups/items freely.
+        targeting: {
+          tag: "PRACTICE-AREA TARGETING",
+          headline: "Pick The Cases You Want. [[I'll Find The People Researching Them.]]",
+          sub: "Every practice area gets its own audience, so your ads only reach people researching the kind of case you take.",
+          groups: [
+            { name: "Auto & vehicle", items: ["Car Accident Lawyer", "Car Accident Claim", "Car Crash", "Auto Accident", "Auto Accident Lawyer", "Auto Accident Lawsuit", "Whiplash & Auto Injuries", "Ride Share Accidents", "Motorcycle Accident Claims", "Bicycle Accident Claims", "Pedestrian Accidents"] },
+            { name: "Trucking & commercial", items: ["Commercial Trucking Accidents", "Delivery Truck Accidents", "Commercial Bus Accidents", "Aviation Accidents"] },
+            { name: "Injury & malpractice", items: ["Accident Injury", "Personal Injury Law", "Slip & Fall Injuries", "Workplace Injuries", "Long Term Disability After an Accident", "Birth Injury", "Birth Injury Malpractice"] }
+          ],
+          note: "Layer any of these with your city, county or zip codes."
+        },
         placements: {
           headline: "What Your Firm's Ads [[Could Look Like]]",
           sub: "Bright, simple banners in 8 to 10 sizes with your face, your firm and your city. Here are real placements I've run for clients."
@@ -462,6 +475,11 @@
   /* niches */
   ".niches { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 900px; margin: 0 auto; }\n" +
   ".niches span { font-weight: 600; font-size: 15px; padding: 10px 18px; border-radius: 999px; background: var(--card); border: 1px solid var(--border); }\n" +
+  ".tg { display: grid; gap: 28px; max-width: 900px; margin: 0 auto; }\n" +
+  ".tg-g { display: grid; gap: 12px; justify-items: center; text-align: center; }\n" +
+  ".tg-g h3 { font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-d); }\n" +
+  ".tg-note { text-align: center; color: var(--muted); font-weight: 600; margin-top: 26px; }\n" +
+  "@media (max-width: 640px) { .tg .niches { gap: 8px; } .tg .niches span { font-size: 14px; padding: 8px 14px; } }\n" +
   ".nlink { display: flex; justify-content: center; margin-top: 26px; }\n" +
   ".nlink a { font-weight: 700; color: var(--teal-d); text-decoration: underline; text-underline-offset: 4px; }\n" +
   /* faq */
@@ -764,6 +782,11 @@
     niches: function (n) {
       return '<section class="light" style="padding-top:0"><div class="wrap">' + head(n) + '<div class="niches">' + n.items.map(function (x) { return "<span>" + esc(x) + "</span>"; }).join("") + "</div>" +
         (n.link ? '<div class="nlink"><a href="' + esc(n.link.url) + '" target="_top">' + esc(n.link.label) + " →</a></div>" : "") + "</div></section>";
+    },
+    targeting: function (t) {
+      return '<section class="light"><div class="wrap">' + head(t) + '<div class="tg">' + t.groups.map(function (g) {
+        return '<div class="tg-g"><h3>' + esc(g.name) + '</h3><div class="niches">' + g.items.map(function (x) { return "<span>" + esc(x) + "</span>"; }).join("") + "</div></div>"; }).join("") +
+        "</div>" + (t.note ? '<p class="tg-note">' + esc(t.note) + "</p>" : "") + '<div class="cta-row">' + cta(C.cta, "targeting") + "</div></div></section>";
     },
     faq: function (f) {
       return '<section class="light" style="padding-top:0"><div class="wrap">' + head(f) + '<div class="faq">' +
