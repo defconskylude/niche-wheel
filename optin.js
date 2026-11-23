@@ -57,6 +57,21 @@
           trayCta: "Build This For A Client",
           tableSub: "Every audience tab I pulled from The Trade Desk. Pick a category and a tab to see what you could offer each client."
         }
+      },
+      // Thank-you page for lawyers who just filled out the Meta lead form. hero.video = YouTube video id.
+      // In GHL, use ONLY the 2-line snippet (no window.TT_OPTIN_CONFIG block) so this config is what shows.
+      "/lawyers": {
+        hero: {
+          eyebrow: "THANKS! YOUR REQUEST IS IN",
+          headline: "Before We Talk, [[Watch This 7-Minute Video]]",
+          video: "vs1sDiCHsSw",
+          videoTitle: "How I put your law firm in front of people who searched for an injury lawyer",
+          sub: "See how I put your firm in front of people who just searched for a car accident or injury lawyer, on trusted sites like Fox News, CNN and USA Today. Not Meta. Not Google.",
+          note: "I'll text you shortly to set up a quick chat.",
+          cta: false,
+          proof: []
+        },
+        final: { bio: "" }
       }
     },
     order: ["hero", "placements", "services", "awareness", "networks", "publishers", "data", "audiences", "b2b", "who", "steps", "niches", "faq", "final"],
@@ -276,6 +291,14 @@
   ".hf-head p { font-size: 14px; line-height: 1.45; opacity: .85; margin: 0; }\n" +
   ".hf-body { padding: 6px 8px 4px; min-height: " + C.form.height + "px; }\n" +
   "@media (max-width: 900px) { .hero .inner.has-form { grid-template-columns: minmax(0, 1fr); text-align: center; max-width: 620px; } .has-form .copy { justify-items: center; } .has-form .proof { justify-content: center; } }\n" +
+  ".hero-video { width: 100%; max-width: 880px; margin: 6px auto 4px; border-radius: 16px; overflow: hidden; background: var(--navy); box-shadow: 0 24px 60px oklch(0.215 0.055 257 / .22); aspect-ratio: 16 / 9; }\n" +
+  ".hero-video .yt, .hero-video iframe { display: block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background: #000; cursor: pointer; position: relative; }\n" +
+  ".hero-video .yt img { width: 100%; height: 100%; object-fit: cover; display: block; }\n" +
+  ".hero-video .play { position: absolute; inset: 0; display: grid; place-items: center; }\n" +
+  ".hero-video .play svg { width: 76px; height: 54px; filter: drop-shadow(0 4px 14px rgb(0 0 0 / .45)); transition: transform .15s; }\n" +
+  ".hero-video .yt:hover .play svg, .hero-video .yt:focus-visible .play svg { transform: scale(1.08); }\n" +
+  ".hero-video .yt:focus-visible { outline: 3px solid var(--teal); outline-offset: -3px; }\n" +
+  "@media (max-width: 640px) { .hero.has-video { padding-block: 22px 44px; } .hero.has-video .inner { gap: 14px; } .hero.has-video .eyebrow { font-size: 12px; padding: 6px 14px; } .hero.has-video h1 { font-size: clamp(26px, 7.4vw, 34px); } .hero.has-video .sub { font-size: 16px; } .hero-video { border-radius: 12px; margin-inline: -4px; width: calc(100% + 8px); } .hero-video .play svg { width: 64px; height: 46px; } }\n" +
   ".proof { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px; }\n" +
   ".proof span { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 999px; background: var(--card); border: 1px solid var(--border); }\n" +
   ".proof svg { width: 18px; height: 18px; color: var(--teal); flex: none; }\n" +
@@ -547,9 +570,14 @@
           '<div class="proof">' + (h.proof || []).map(function (p) { return "<span>" + check() + esc(p) + "</span>"; }).join("") + "</div></div>" +
           '<div class="hero-form" id="form"><div class="hf-head"><b>' + esc(C.form.title) + "</b><p>" + esc(C.form.sub) + '</p></div><div class="hf-body"><slot name="heroform"></slot></div></div></div></div></section>';
       }
-      return '<section class="hero"><div class="wrap"><div class="inner">' + (h.eyebrow ? '<p class="eyebrow">' + esc(h.eyebrow) + "</p>" : "") +
-        "<h1>" + hl(h.headline) + '</h1><p class="sub">' + esc(h.sub) + "</p>" + (h.note ? '<p class="note">' + esc(h.note) + "</p>" : "") + cta(C.cta, "hero") +
-        '<div class="proof">' + (h.proof || []).map(function (p) { return "<span>" + check() + esc(p) + "</span>"; }).join("") + "</div></div></div></section>";
+      // hero.video: YouTube id. Shows a light thumbnail first; the player loads on tap (fast on phones).
+      var vid = h.video ? '<div class="hero-video"><button class="yt" type="button" data-yt="' + esc(h.video) + '" aria-label="Play video: ' + esc(h.videoTitle || h.headline.replace(/\[\[|\]\]/g, "")) + '">' +
+        '<img src="https://i.ytimg.com/vi/' + esc(h.video) + '/maxresdefault.jpg" alt="" loading="eager" fetchpriority="high" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/' + esc(h.video) + '/hqdefault.jpg\'">' +
+        '<span class="play" aria-hidden="true"><svg viewBox="0 0 68 48"><path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.3.3 34 .3 34 .3s-21.3 0-26.5 1.4a8.5 8.5 0 0 0-6 6C.1 13 .1 24 .1 24s0 11 1.4 16.3a8.5 8.5 0 0 0 6 6C12.7 47.7 34 47.7 34 47.7s21.3 0 26.5-1.4a8.5 8.5 0 0 0 6-6C67.9 35 67.9 24 67.9 24s0-11-1.4-16.3z" fill="#f00"/><path d="M27 34.3 44.8 24 27 13.7z" fill="#fff"/></svg></span></button></div>' : "";
+      var proof = (h.proof || []).length ? '<div class="proof">' + h.proof.map(function (p) { return "<span>" + check() + esc(p) + "</span>"; }).join("") + "</div>" : "";
+      return '<section class="hero' + (h.video ? " has-video" : "") + '"><div class="wrap"><div class="inner">' + (h.eyebrow ? '<p class="eyebrow">' + esc(h.eyebrow) + "</p>" : "") +
+        "<h1>" + hl(h.headline) + "</h1>" + vid + '<p class="sub">' + esc(h.sub) + "</p>" + (h.note ? '<p class="note">' + esc(h.note) + "</p>" : "") + (h.cta === false ? "" : cta(C.cta, "hero")) +
+        proof + "</div></div></section>";
     },
     placements: function (p) {
       return '<section class="light"><div class="wrap">' + head(p) + '<div class="banners">' + p.banners.map(function (b) { return '<div class="shot">' + img(b.img, b.alt, "placements") + "</div>"; }).join("") + "</div>" +
@@ -648,7 +676,7 @@
     },
     final: function (fi) {
       return '<section class="on-navy final"><div class="wrap"><div class="inner">' + tag(fi.host, true) + "<h2>" + hl(fi.headline) + '</h2><p class="sub">' + esc(fi.sub) + "</p>" + cta(C.cta, "final") +
-        '<p class="bio"><b>About:</b> ' + esc(fi.bio) + "</p></div></div></section>";
+        (fi.bio ? '<p class="bio"><b>About:</b> ' + esc(fi.bio) + "</p>" : "") + "</div></div></section>";
     }
   };
   function html() {
@@ -880,6 +908,17 @@
     }
     function close() { modal.hidden = true; document.body.style.overflow = ""; if (last && last.focus) last.focus(); }
     ROOT.addEventListener("click", function (e) { var b = e.target.closest && e.target.closest(".cta"); if (b) open(b.getAttribute("data-src") || "cta"); });
+    // hero video: swap the thumbnail for the YouTube player on tap
+    ROOT.addEventListener("click", function (e) {
+      var y = e.target.closest && e.target.closest(".yt"); if (!y) return;
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(y.getAttribute("data-yt")) + "?autoplay=1&playsinline=1&rel=0&modestbranding=1";
+      f.title = y.getAttribute("aria-label").replace(/^Play video: /, "");
+      f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      f.allowFullscreen = true; f.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+      y.replaceWith(f);
+      try { window.dataLayer && window.dataLayer.push({ event: "tt_video_play", video_id: y.getAttribute("data-yt") }); } catch (err) {}
+    });
     // galleries
     ROOT.querySelectorAll("[data-gal]").forEach(function (g) {
       var track = g.querySelector(".track"), count = g.querySelector(".count"), n = track.children.length;

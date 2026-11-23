@@ -19,3 +19,8 @@ Edit the CONFIG block at the top of optin.js (colors, copy, sections), then run 
 Section `audiences` in optin.js renders a searchable table of 5,326 Trade Desk segments from `audiences.json` (loaded only when the visitor scrolls near it).
 To refresh the data: export every tab of the audience Google Sheet, run `src/build_audiences.py`, replace `audiences.json`, push.
 Copy and labels live in `CONFIG.audiences`; the agency page override is in `CONFIG.pages["/agency-partners"]`.
+
+## /lawyers thank-you page
+Config lives in `CONFIG.pages["/lawyers"]` in optin.js (hero headline, YouTube id in `hero.video`, note).
+GHL code for that page must be ONLY the 2-line opt-in snippet above (no `window.TT_OPTIN_CONFIG` block), or that block overrides GitHub.
+`hero.cta: false` hides the hero button, `hero.proof: []` hides the chips, `final.bio: ""` hides the About line.
